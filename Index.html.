@@ -1,0 +1,85 @@
+<script>
+// NO button lines
+let noLines = [
+    "No😶‍🌫️",
+    "Are you sure 💘",
+    "Really 🫣",
+    "Try again 🥱",
+    "No escape😏",
+    "Nice try 😚",
+    "You can't escape love😉😘",
+    "Still no🤧",
+    "Really😞",
+    "You are testing my patience now🥴",
+    "Nope not happening🙂↔️"
+];
+let noIndex = 0;
+
+const noBtn = document.querySelector(".no-btn");
+const questionBox = document.getElementById("questionBox");
+
+// NO button click function
+function noClick() {
+    // Cycle text
+    if(noIndex < noLines.length){
+        document.getElementById("noText").innerText = noLines[noIndex];
+        noIndex++;
+    }
+
+    // Move button inside the container
+    const containerRect = questionBox.getBoundingClientRect();
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
+
+    const maxX = containerRect.width - btnWidth - 20; // 20px padding buffer
+    const maxY = containerRect.height - btnHeight - 20;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.position = "absolute";
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+}
+
+// YES click
+function sayYes() {
+    document.getElementById("questionBox").classList.add("hidden");
+    document.getElementById("resultBox").classList.remove("hidden");
+    startConfetti();
+}
+
+// Show note and play music
+function showNote() {
+    let noteBox = document.getElementById("noteBox");
+    noteBox.style.display = "block";
+
+    // Play gentle music
+    let audio = new Audio('https://www.bensound.com/bensound-music/bensound-slowmotion.mp3');
+    audio.volume = 0.2;
+    audio.play();
+}
+
+// Floating hearts
+function createHeart() {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.animationDuration = 5 + Math.random() * 5 + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => { heart.remove(); }, 7000);
+}
+setInterval(createHeart, 300);
+
+// Confetti
+function startConfetti() {
+    for (let i = 0; i < 50; i++) {
+        let confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.left = Math.random() * window.innerWidth + "px";
+        confetti.style.background = `hsl(${Math.random()*360}, 100%, 70%)`;
+        document.body.appendChild(confetti);
+        setTimeout(() => { confetti.remove(); }, 3000);
+    }
+}
+  </script>
